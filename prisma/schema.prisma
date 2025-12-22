@@ -1,0 +1,44 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User{
+  id String @id @default(cuid())
+  email String @unique
+  username String?
+  password String?
+  balance Float @default(0.00)
+  createdAt DateTime @default(now())
+
+  transactions  Transaction[]
+  gameHistory   GameHistory[]
+}
+
+model Transaction{
+  id String @id @default(cuid())
+ userId String
+ amout Float
+ type String //"DEPOSIT", "WITHDRAWL",
+ status String // "PENDDING","COMPLETED"
+   createdAt DateTime @default(now())
+
+   user      User     @relation(fields: [userId], references: [id])
+
+}
+
+model GameHistory {
+  id        String   @id @default(cuid())
+  userId    String
+  gameType  String   // "ROULETTE", "SLOTS"
+  bet       Float
+  payout    Float    // 0 jeśli przegrana
+  result    String   // Np. "RED_7"
+  createdAt DateTime @default(now())
+
+  user      User     @relation(fields: [userId], references: [id])
+}
