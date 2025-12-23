@@ -27,12 +27,12 @@ export default async function Navbar() {
             <div className="bg-slate-900 px-3 py-1 rounded border border-slate-800 text-green-400 font-mono">
               ${balance.toFixed(2)}
             </div>
-            <Link href="/profile" className="hover:text-purple-400">Profil</Link>
+            <Link href="/profile" className="hover:text-purple-400">Profile</Link>
           </>
         ) : (
           <>
-            <Link href="/login" className="text-slate-300 hover:text-white">Logowanie</Link>
-            <Link href="/register" className="bg-purple-600 px-4 py-2 rounded hover:bg-purple-700">Rejestracja</Link>
+            <Link href="/login" className="text-slate-300 hover:text-white">Login</Link>
+            <Link href="/register" className="bg-purple-600 px-4 py-2 rounded hover:bg-purple-700">Register</Link>
           </>
         )}
       </div>

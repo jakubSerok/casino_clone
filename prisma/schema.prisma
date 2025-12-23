@@ -22,7 +22,7 @@ model User{
 model Transaction{
   id String @id @default(cuid())
  userId String
- amout Float
+ amount Float
  type String //"DEPOSIT", "WITHDRAWL",
  status String // "PENDDING","COMPLETED"
    createdAt DateTime @default(now())
