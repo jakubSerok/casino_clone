@@ -1,19 +1,41 @@
-import Link from "next/link"
-import { getServerSession } from "next-auth"
-import { authOptions } from "@/app/api/auth/[...nextauth]/route"
-import { db } from "@/lib/db"
+"use client";
 
-export default async function Navbar() {
-  const session = await getServerSession(authOptions)
-  
-  let balance = 0;
-  if (session?.user?.email) {
-    const user = await db.user.findUnique({
-      where: { email: session.user.email },
-      select: { balance: true }
-    });
-    balance = user?.balance || 0;
+import Link from "next/link"
+import { useSession } from "next-auth/react"
+import { useEffect, useState } from "react"
+
+export default function Navbar() {
+  const { data: session, status } = useSession()
+  const [balance, setBalance] = useState(0)
+  const [isLoading, setIsLoading] = useState(true)
+
+  const fetchBalance = async () => {
+    if (!session?.user?.email) return;
+    
+    try {
+      const res = await fetch('/api/user/balance')
+      if (res.ok) {
+        const data = await res.json()
+        setBalance(data.balance)
+      }
+    } catch (error) {
+      console.error('Failed to fetch balance:', error)
+    } finally {
+      setIsLoading(false)
+    }
   }
+
+  useEffect(() => {
+    // Initial fetch
+    fetchBalance()
+    
+    // Set up polling every 5 seconds
+    const interval = setInterval(fetchBalance, 5000)
+    
+    // Clean up interval on component unmount
+    return () => clearInterval(interval)
+  }, [session])
+
 
   return (
     <nav className="border-b border-slate-800 bg-slate-950 p-4 text-white flex justify-between items-center">
@@ -25,7 +47,7 @@ export default async function Navbar() {
         {session ? (
           <>
             <div className="bg-slate-900 px-3 py-1 rounded border border-slate-800 text-green-400 font-mono">
-              ${balance.toFixed(2)}
+              ${isLoading ? '...' : balance.toFixed(2)}
             </div>
             <Link href="/profile" className="hover:text-purple-400">Profile</Link>
           </>
