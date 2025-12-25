@@ -168,6 +168,10 @@ export class RouletteGame implements GameModule {
             room.status = "ROLLING";
             const result = Math.floor(Math.random() * 37); // 0-36
 
+            if(room.history.length>= 20){
+              room.history.shift();
+            }
+            room.history.push(result)
             io.to(fullRoomName).emit("round_result", result);
 
             const bets = room.bets;

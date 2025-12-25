@@ -3,7 +3,7 @@ import { useEffect, useState, useRef } from "react";
 import { io, Socket } from "socket.io-client";
 import { useParams } from "next/navigation";
 import { useSession } from "next-auth/react";
-
+import { HistoryDisplay } from "../components/HistoryDisplay"
 // --- CONFIGURATION ---
 const socket: Socket = io("http://localhost:3001", { autoConnect: false });
 
@@ -49,7 +49,7 @@ export default function RouletteRoom() {
   const [gameState, setGameState] = useState<GameState | null>(null);
   const [timer, setTimer] = useState(30);
   const [logs, setLogs] = useState<string[]>([]);
-
+  const [history,setHistory] = useState<number[]>([])
   // Betting State
   const [currentAmount, setCurrentAmount] = useState<number>(BET_AMOUNTS[0]);
   const [currentBetType, setCurrentBetType] = useState<
@@ -72,6 +72,8 @@ export default function RouletteRoom() {
     const handleInitState = (state: GameState) => {
       setGameState(state);
       setTimer(state.timeLeft);
+      setHistory(state.history || []);
+
     };
 
     const handleTimerUpdate = (time: number) => setTimer(time);
@@ -94,6 +96,7 @@ export default function RouletteRoom() {
         setLastResult(result);
         setLogs((prev) => [`Winning Number: ${result}`, ...prev]);
         setIsSpinning(false);
+         setHistory(prev => [...prev, result].slice(-10));
         // Sync ref after animation completes (use the calculated rotation)
         currentRotationRef.current = newRotation;
       }, 3000);
@@ -298,6 +301,12 @@ export default function RouletteRoom() {
             )}
           </div>
         </div>
+<div className="grid grid-cols-1 gap-6 p-4">
+  {/* Your existing wheel and controls */}
+  
+  {/* Add this new history display */}
+  <HistoryDisplay history={history} />
+</div>
 
         {/* RIGHT: BETTING BOARD */}
         <div className="p-6 md:p-8 flex flex-col bg-slate-900">
