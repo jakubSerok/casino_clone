@@ -1,5 +1,6 @@
 datasource db {
   provider = "postgresql"
+  // @ts-nocheck
   url      = env("DATABASE_URL")
 }
 

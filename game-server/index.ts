@@ -8,9 +8,12 @@ import { GameModule } from "./games/types";
 
 const prisma = new PrismaClient();
 const server = http.createServer();
+
+const allowedOrigins = [process.env.FRONTEND_URL || "http://localhost:3000"];
+
 const io = new Server(server, {
   cors: {
-    origin: "*", // W produkcji ustaw tu domenę Next.js
+    origin: allowedOrigins,
     methods: ["GET", "POST"],
   },
 });
