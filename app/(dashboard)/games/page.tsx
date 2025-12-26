@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Rulette from "./components/rulette";
 import CoinFlip from "./components/coinflip";
+import CrashGame from "./components/crashgame";
 
 export default function GamesPage() {
   return (
@@ -20,9 +21,10 @@ export default function GamesPage() {
         </Link>
       </div>
 
-      <div className="grid gap-6  grid-cols-1 md:grid-cols-2">
+      <div className="grid gap-6  grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
         <Rulette />
         <CoinFlip />
+        <CrashGame />
       </div>
     </div>
   );

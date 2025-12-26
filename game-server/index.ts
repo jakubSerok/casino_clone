@@ -3,6 +3,7 @@ import { PrismaClient } from "@prisma/client";
 import http from "http";
 import { RouletteGame } from "./games/roulette";
 import { CoinFlipGame } from "./games/coinflip";
+import { CrashGame } from "./games/crash-game";
 import { GameModule } from "./games/types";
 
 const prisma = new PrismaClient();
@@ -15,7 +16,11 @@ const io = new Server(server, {
 });
 
 // Rejestracja wszystkich gier
-const games: GameModule[] = [new RouletteGame(), new CoinFlipGame()];
+const games: GameModule[] = [
+  new RouletteGame(),
+  new CoinFlipGame(),
+  new CrashGame(),
+];
 
 // Mapowanie nazw gier do modułów
 const gameMap: Record<string, GameModule> = {};
