@@ -54,7 +54,7 @@ io.on("connection", (socket) => {
   });
 });
 
-server.listen(3001, () => {
-  console.log("Game Server (Socket.io) działa na porcie 3001");
+server.listen(process.env.PORT || 3001, () => {
+  console.log("Game Server (Socket.io) działa na porcie", process.env.PORT || 3001);
   console.log(`Zarejestrowane gry: ${games.map((g) => g.gameType).join(", ")}`);
 });
