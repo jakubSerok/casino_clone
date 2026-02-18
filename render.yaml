@@ -11,6 +11,6 @@ services:
       - key: NODE_ENV
         value: production
       - key: FRONTEND_URL
-        value: https://your-frontend-url.onrender.com
+        value: https://casino-clone.vercel.app
       - key: DATABASE_URL
         sync: false

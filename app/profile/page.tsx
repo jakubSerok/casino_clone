@@ -50,7 +50,7 @@ export default async function ProfilePage() {
         {/* Sekcja środkowa: Zarządzanie */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
             <WalletManager />
-            <EditProfileForm user={user} />
+            {/* <EditProfileForm user={user} /> */}
         </div>
 
         {/* Sekcja dolna: Historia */}

@@ -9,12 +9,16 @@ import { GameModule } from "./games/types";
 const prisma = new PrismaClient();
 const server = http.createServer();
 
-const allowedOrigins = [process.env.FRONTEND_URL || "http://localhost:3000"];
+const allowedOrigins = [
+  process.env.FRONTEND_URL || "http://localhost:3000",
+  "https://casino-clone.vercel.app"
+];
 
 const io = new Server(server, {
   cors: {
     origin: allowedOrigins,
     methods: ["GET", "POST"],
+    credentials: true,
   },
 });
 

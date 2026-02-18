@@ -32,6 +32,12 @@ export default function LoginPage() {
       <div className="w-full max-w-md p-8 bg-slate-900 rounded-xl border border-slate-800 shadow-2xl">
         <h1 className="text-3xl font-bold mb-6 text-center text-green-500">Kasyno Login</h1>
         
+        <div className="mb-4 p-3 bg-slate-800 rounded-lg border border-slate-700 text-sm">
+          <p className="text-center text-slate-300">Dane testowe:</p>
+          <p className="text-center text-white font-mono">Email: test@gmail.com</p>
+          <p className="text-center text-white font-mono">Hasło: Test123!</p>
+        </div>
+        
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label className="block text-sm mb-1">Email</label>
