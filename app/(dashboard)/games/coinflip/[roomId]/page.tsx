@@ -6,7 +6,7 @@ import { useSession } from "next-auth/react";
 import { HistoryDisplay } from "../components/HistoryDisplay";
 
 // --- CONFIGURATION ---
-const socket: Socket = io("http://localhost:3001", { autoConnect: false });
+const socket: Socket = io(process.env.NEXT_PUBLIC_SOCKET_URL || "http://localhost:3001", { autoConnect: false });
 
 const BET_AMOUNTS = [5, 10, 25, 50, 100, 250, 500];
 

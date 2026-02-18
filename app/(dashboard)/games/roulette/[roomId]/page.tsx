@@ -5,7 +5,7 @@ import { useParams } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { HistoryDisplay } from "../components/HistoryDisplay"
 // --- CONFIGURATION ---
-const socket: Socket = io("http://localhost:3001", { autoConnect: false });
+const socket: Socket = io(process.env.NEXT_PUBLIC_SOCKET_URL || "http://localhost:3001", { autoConnect: false });
 
 // European Roulette Order (The correct sequence on the wheel)
 const WHEEL_NUMBERS = [

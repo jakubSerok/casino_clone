@@ -5,8 +5,10 @@
   "scripts": {
     "dev": "next dev",
     "build": "prisma generate && next build",
+    "build:server": "tsc game-server/index.ts --outDir dist --target es2020 --module commonjs --moduleResolution node --esModuleInterop --allowSyntheticDefaultImports",
     "postinstall": "prisma generate",
     "start": "next start",
+    "start:server": "node dist/index.js",
     "lint": "eslint"
   },
   "dependencies": {
